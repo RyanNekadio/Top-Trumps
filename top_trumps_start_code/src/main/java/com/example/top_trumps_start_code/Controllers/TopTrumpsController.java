@@ -24,10 +24,10 @@ public class TopTrumpsController {
         return new ResponseEntity<Reply>(reply, HttpStatus.CREATED);
     }
 
-    @GetMapping
-    public ResponseEntity<Reply> geCardStatus(){
-
-        Reply reply;
-        
+    @PatchMapping
+    public ResponseEntity<Reply> handleGuess(@RequestBody ArrayList<Card> cards){
+        Reply reply = topTrumpsService.checkWinner(cards);
+        return new ResponseEntity<>(reply, HttpStatus.OK);
+    }
 
 }

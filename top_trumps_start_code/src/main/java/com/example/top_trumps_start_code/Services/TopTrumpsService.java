@@ -19,6 +19,9 @@ public class TopTrumpsService {
     }
 
     public Reply startNewGame() {
+//        Extension task 1: code to test draw
+//        this.card1 = new Card(Rank.JACK, Suit.HEARTS);
+//        this.card2 = new Card(Rank.JACK, Suit.CLUBS);
         this.card1 = new Card(Rank.SEVEN, Suit.DIAMONDS);
         this.card2 = new Card(Rank.TWO, Suit.SPADES);
         this.drawnCards = new ArrayList<>();
@@ -28,12 +31,24 @@ public class TopTrumpsService {
                 "Started new game"
         );
     }
+//    MVP task: Check winning card
+    public Reply checkWinner(ArrayList<Card> cards){
+        cards.add(this.card1);
+        cards.add(this.card2);
+        Reply reply;
 
-    public String checkWinner(Card card1, Card card2){
         if (card1.getCardValue() > card2.getCardValue()){
-            return card1 + " is the winner!";
+            reply = new Reply(card1.getRank() + " of " + card1.getSuit() + " wins!");
+            reply.setWinner(true);
+            return reply;
+        } else if (card1.getCardValue() < card2.getCardValue()) {
+            reply = new Reply(card2.getRank() + " of" + card2.getSuit() + " wins!");
+            reply.setWinner(true);
+            return reply;
+//        Extension task: Add message in the event of a draw
         } else {
-            return card2 + " is the winner!";
+            reply = new Reply("Draw! card values are the same!");
+            return reply;
         }
     }
 
@@ -61,7 +76,5 @@ public class TopTrumpsService {
         this.drawnCards = drawnCards;
     }
 
-    public boolean checkWinner() {
-    }
 }
 
